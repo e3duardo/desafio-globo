@@ -64,7 +64,7 @@ describe "/surveys", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        { date: Time.zone.now }
+        { date: Time.zone.today + 3.days }
       }
 
       it "updates the requested survey" do
@@ -72,7 +72,7 @@ describe "/surveys", type: :request do
         patch survey_url(survey),
               params: { survey: new_attributes }, headers: valid_headers, as: :json
         survey.reload
-        skip("Add assertions for updated state")
+        expect(survey.date).to eq(Time.zone.today + 3.days)
       end
 
       it "renders a JSON response with the survey" do

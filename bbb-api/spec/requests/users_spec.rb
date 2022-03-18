@@ -72,7 +72,7 @@ describe "/users", type: :request do
         patch user_url(user),
               params: { user: new_attributes }, headers: valid_headers, as: :json
         user.reload
-        skip("Add assertions for updated state")
+        expect(user.name).to eq('Mario')
       end
 
       it "renders a JSON response with the user" do

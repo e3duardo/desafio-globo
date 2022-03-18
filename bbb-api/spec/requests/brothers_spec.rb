@@ -65,7 +65,7 @@ describe "/brothers", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        {name: 'Mario'}
+        { name: 'Mario' }
       }
 
       it "updates the requested brother" do
@@ -73,7 +73,7 @@ describe "/brothers", type: :request do
         patch brother_url(brother),
               params: { brother: new_attributes }, headers: valid_headers, as: :json
         brother.reload
-        skip("Add assertions for updated state")
+        expect(brother.name).to eq('Mario')
       end
 
       it "renders a JSON response with the brother" do

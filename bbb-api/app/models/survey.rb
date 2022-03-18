@@ -4,5 +4,5 @@ class Survey < ApplicationRecord
 
   enum status: { created: 'created', active: 'active', done: 'done' }
 
-  validates :date, presence: true
+  validates :date, presence: true, uniqueness: true
 end
