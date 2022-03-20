@@ -1,16 +1,8 @@
 describe "/brothers", type: :request do
+  include_context('default.user')
 
   let(:valid_attributes) { attributes_for(:brother) }
-
   let(:invalid_attributes) { attributes_for(:brother, name: nil) }
-
-  # This should return the minimal set of values that should be in the headers
-  # in order to pass any filters (e.g. authentication) defined in
-  # BrothersController, or in your router and rack
-  # middleware. Be sure to keep this updated too.
-  let(:valid_headers) {
-    {}
-  }
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -23,7 +15,7 @@ describe "/brothers", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       brother = Brother.create! valid_attributes
-      get brother_url(brother), as: :json
+      get brother_url(brother), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end

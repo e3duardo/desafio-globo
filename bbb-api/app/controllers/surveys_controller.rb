@@ -1,4 +1,5 @@
 class SurveysController < ApplicationController
+  before_action :authorize_request
   before_action :set_survey, only: [:show, :update, :destroy]
 
   # GET /surveys

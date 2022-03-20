@@ -1,4 +1,5 @@
 class BrothersController < ApplicationController
+  before_action :authorize_request
   before_action :set_brother, only: [:show, :update, :destroy]
 
   # GET /brothers

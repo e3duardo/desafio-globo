@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  resources :votes, only: [:index, :create]
   resources :surveys
   resources :brothers
   resources :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  post '/auth/login', to: 'authentication#login'
 end
