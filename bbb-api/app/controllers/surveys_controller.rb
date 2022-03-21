@@ -16,9 +16,12 @@ class SurveysController < ApplicationController
 
   # POST /surveys
   def create
-    @survey = Survey.new(survey_params)
+    brothers_ids = params.dig(:survey, :brothers_ids)
 
+    @survey = Survey.new(survey_params)
     if @survey.save
+      @survey.brothers = Brother.where(id: brothers_ids)
+    
       render json: @survey, status: :created, location: @survey
     else
       render json: @survey.errors, status: :unprocessable_entity
@@ -27,7 +30,14 @@ class SurveysController < ApplicationController
 
   # PATCH/PUT /surveys/1
   def update
-    if @survey.update(survey_params)
+    status = params.dig(:survey, :status)
+    return render json: { errors: 'Status inválido' }, status: :unprocessable_entity unless ['created', 'active'].include?(status)
+
+    brothers_ids = params.dig(:survey, :brothers_ids)
+
+    if @survey.update(status: status)
+      @survey.brothers = Brother.where(id: brothers_ids) if brothers_ids.present?
+
       render json: @survey
     else
       render json: @survey.errors, status: :unprocessable_entity
@@ -48,6 +58,6 @@ class SurveysController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def survey_params
-    params.require(:survey).permit(:date, :status, :brother_out_id)
+    params.require(:survey).permit(:date)
   end
 end

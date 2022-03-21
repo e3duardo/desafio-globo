@@ -1,5 +1,11 @@
 class BrothersController < ApplicationController
-  before_action :authorize_request
+  # before_action :authorize_request
+  before_action except: [:show] do
+    authorize_request(:backstage)
+  end
+  before_action only: [:show] do
+    authorize_request(:viewer)
+  end
   before_action :set_brother, only: [:show, :update, :destroy]
 
   # GET /brothers
@@ -48,6 +54,6 @@ class BrothersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def brother_params
-    params.require(:brother).permit(:name, :birth, :status)
+    params.require(:brother).permit(:name, :avatar, :resume, :birth, :status)
   end
 end
