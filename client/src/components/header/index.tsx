@@ -1,11 +1,13 @@
-import { ReactComponent as LogoGlobo } from '../../assets/logo.svg';
+import BigBrotherHeader from "./bigbrother";
+import BrothersHeader from "./brothers";
 
 function Header() {
   return (
-    <header className="header">
-      <LogoGlobo className="App-logo" />
-    </header>
-  )
+    <>
+      <BigBrotherHeader />
+      <BrothersHeader />
+    </>
+  );
 }
 
 export default Header;

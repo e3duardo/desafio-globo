@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import './styles/index.css';
+import "./styles/index.css";
 
-import Header from './components/header';
-import SurveyView from './containers/surveyview';
-import VotingView from './containers/votingview';
-import LoginView from './containers/loginview';
-import { AuthProvider, RequireAuth } from './authprovider';
+import Header from "./components/header";
+import HomeView from "./containers/home_view";
+import SurveyView from "./containers/survey_view";
+import LoginView from "./containers/login_view";
+import { AuthProvider, RequireAuth } from "./authprovider";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -17,14 +18,19 @@ function App() {
           <Header />
           <main>
             <Routes>
-              <Route path='/login' element={<LoginView />} />
-              <Route path='/votar/:id' element={
-                <RequireAuth>
-                  <VotingView />
-                </RequireAuth>} />
-              <Route path='/' element={<SurveyView />} />
+              <Route path="/login" element={<LoginView />} />
+              <Route
+                path="/votacao/:id"
+                element={
+                  <RequireAuth>
+                    <SurveyView />
+                  </RequireAuth>
+                }
+              />
+              <Route path="/" element={<HomeView />} />
             </Routes>
           </main>
+          <Footer />
         </AuthProvider>
       </BrowserRouter>
     </div>

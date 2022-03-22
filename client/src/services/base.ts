@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://localhost';
 
 axios.defaults.baseURL = apiUrl;
 
-export { axios };
+export { axios, apiUrl };

@@ -1,7 +1,9 @@
-.header{
-  padding: 14px 0;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #ddd;
+main {
+  min-height: calc(100vh - 74px - 140px - 64px);
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: inherit;
 }

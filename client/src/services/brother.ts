@@ -1,20 +1,24 @@
+import { axios } from "./base";
+import { BrotherType } from "./types";
 
-import { auth } from './auth';
-import { axios } from './base';
-import { BrotherType } from './types';
+const brotherList = async () => {
+  try {
+    const response = await axios.get(`/brothers`);
 
-const brotherDetail = async (id: string) => {
-  try{
-    const response = await axios.get(`/brothers/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${auth.getToken()}`
-      }
-    })
-    
-    return response.data as BrotherType;
-  }catch(e){
+    return response.data as BrotherType[];
+  } catch (e) {
     return null;
   }
-}
+};
 
-export { brotherDetail }
+const brotherDetail = async (id: string) => {
+  try {
+    const response = await axios.get(`/brothers/${id}`);
+
+    return response.data as BrotherType;
+  } catch (e) {
+    return null;
+  }
+};
+
+export { brotherList, brotherDetail };

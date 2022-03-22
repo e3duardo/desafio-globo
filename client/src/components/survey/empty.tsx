@@ -1,11 +1,12 @@
 import { Container } from "react-bootstrap";
 
-function Loading() {
+
+function EmptySurvey() {
   return (
     <Container className="pt-5 text-center fs-4">
-      Carregando...
+      Nenhum paredão ativo, volte na semana que vem 😉
     </Container>
   )
 }
 
-export default Loading;
+export default EmptySurvey;
