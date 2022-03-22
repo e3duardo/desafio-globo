@@ -2,9 +2,9 @@
 import { auth } from './auth';
 import { axios } from './base';
 
-const vote = async (brother_id: string) => {
+const vote = async (brother_id: string, captchaToken: string) => {
   try {
-    const response = await axios.post(`/votes`, { brother_id }, {
+    const response = await axios.post(`/votes`, { brother_id, captcha_token: captchaToken }, {
       headers: {
         'Authorization': `Bearer ${auth.getToken()}`
       }
