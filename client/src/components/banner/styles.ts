@@ -19,13 +19,26 @@ interface BrothersImagesProps {
 export const BrothersImages = styled.div<BrothersImagesProps>`
   display: flex;
   justify-content: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 148px;
+
   .background {
-    margin: 40px;
+    margin: 10px;
+    margin-bottom: 0%;
     background: #fff;
-    padding: 100px 10px 0 50px;
-  }
-  img {
-    width: ${(props) => 1000 / props.count}px;
+    padding: 100px 50px 0 50px;
+    div {
+      display: inline-block;
+      width: ${(props) => 1100 / props.count}px;
+      overflow: hidden;
+
+      img {
+        margin-left: -10%;
+        width: 120%;
+      }
+    }
   }
 `;
 

@@ -7,5 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require_relative 'seeds/brothers'
+require_relative 'seeds/surveys'
 
 Seeds::Brothers.new.create
+Seeds::Surveys.new.create

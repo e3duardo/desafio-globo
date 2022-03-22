@@ -29,8 +29,8 @@
     "@types/react-google-recaptcha": "^2.1.5"
   },
   "scripts": {
-    "dev": "PORT=3001 react-scripts start",
-    "start": "PORT=3001 react-scripts start",
+    "dev": "PORT=80 react-scripts start",
+    "start": "PORT=80 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -12,7 +12,7 @@ sidekiq:
 	docker run --rm -it -v ${PWD}:/var/www/app/current ${REPOSITORY}:${VERSION} bundle exec sidekiq
 
 up:
-	docker run --rm -d -it -v ${PWD}:/var/www/app/current -p 127.0.0.1:3000:3000 --name ${REPOSITORY} ${REPOSITORY}:${VERSION}
+	docker run --rm -d -it -v ${PWD}:/var/www/app/current -p 127.0.0.1:80:80 --name ${REPOSITORY} ${REPOSITORY}:${VERSION}
 
 down:
-	docker kill calendar-api
+	docker kill globo-challenge-api
