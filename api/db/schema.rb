@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2022_03_20_004848) do
 
-  create_table "answers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "brother_id", null: false
     t.bigint "survey_id", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_03_20_004848) do
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
-  create_table "brothers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "brothers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "avatar"
     t.text "resume"
@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 2022_03_20_004848) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "brothers_surveys", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "brothers_surveys", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "survey_id", null: false
     t.bigint "brother_id", null: false
     t.index ["brother_id", "survey_id"], name: "index_brothers_surveys_on_brother_id_and_survey_id"
     t.index ["survey_id", "brother_id"], name: "index_brothers_surveys_on_survey_id_and_brother_id"
   end
 
-  create_table "surveys", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "surveys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.date "date"
     t.string "status", default: "created"
     t.bigint "brother_out_id"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2022_03_20_004848) do
     t.index ["brother_out_id"], name: "index_surveys_on_brother_out_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"

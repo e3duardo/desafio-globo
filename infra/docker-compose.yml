@@ -1,15 +1,33 @@
-version: '3.1'
+version: '2.1'
 
 services:
-  database:
-    container_name: bbb_api_development
-    image: mysql:8.0.28
-    restart: always
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  mysql:
+    container_name: challenge-mysql
+    image: mysql:8.0-debian
+    command: --default-authentication-plugin=mysql_native_password # mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_ROOT_PASSWORD: 8dukpJfd8w
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d
-      - $PWD/docker/mysql:/var/lib/mysql
+      - $PWD/mysql/init:/docker-entrypoint-initdb.d
+      - $PWD/tmp/mysql-data:/var/lib/mysql
+
+  redis: 
+    container_name: challenge-redis
+    image: redis:6.2-alpine
+    expose: 
+      - 6379
+    volumes: 
+      - /tmp/redis-data:/data
+
+  challenge-api: 
+    container_name: challenge-api
+    image: globo-challenge-api:1.0
+    ports:
+      - 80:3000
+    depends_on:
+      - mysql
+      - redis
+    volumes: 
+      - $PWD/../api:/var/www/app/current

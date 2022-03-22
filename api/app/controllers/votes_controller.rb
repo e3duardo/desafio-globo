@@ -2,9 +2,9 @@ class VotesController < ApplicationController
   before_action only: [:index] do
     authorize_request(:backstage)
   end
-  before_action only: [:create] do
-    authorize_request(:viewer)
-  end
+  # before_action only: [:create] do
+  #   authorize_request(:viewer)
+  # end
 
   # GET /votes
   def index
@@ -15,15 +15,16 @@ class VotesController < ApplicationController
 
   # POST /votes
   def create
-    survey = Survey.find_by!(status: :active)
+    # survey = Survey.find_by!(status: :active)
 
-    @answer = Answer.new(answer_params.merge(user_id: @current_user.id, survey_id: survey.id))
+    # @answer = Answer.new(answer_params.merge(user_id: @current_user.id, survey_id: survey.id))
 
-    if @answer.save
-      render json: @answer, status: :created
-    else
-      render json: @answer.errors, status: :unprocessable_entity
-    end
+    # if @answer.save
+    #   render json: @answer, status: :created
+    # else
+    #   render json: @answer.errors, status: :unprocessable_entity
+    # end
+    head :ok
   end
 
   private

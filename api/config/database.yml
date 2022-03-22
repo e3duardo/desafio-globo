@@ -12,21 +12,21 @@
 default: &default
   adapter: mysql2
   encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
+  host: 172.18.0.3
   username: globo
-  password: 8dukpJfd8w
-  host: 172.18.0.2
+  password: <%= Rails.application.credentials.database_password %>
 
 development:
   <<: *default
-  database: bbb_api_development
+  database: challenge_api_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: bbb_api_test
+  database: challenge_api_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -50,6 +50,6 @@ test:
 #
 production:
   <<: *default
-  database: bbb_api_production
-  username: bbb_api
-  password: <%= ENV['BBB_API_DATABASE_PASSWORD'] %>
+  database: challenge_api_production
+  username: challenge_api
+  password: <%= ENV['GLOBO_CHALLENGE_DATABASE_PASSWORD'] %>
