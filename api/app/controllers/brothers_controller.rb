@@ -1,11 +1,6 @@
 class BrothersController < ApplicationController
   # before_action :authorize_request
-  before_action except: [:show] do
-    authorize_request(:backstage)
-  end
-  before_action only: [:show] do
-    authorize_request(:viewer)
-  end
+  before_action :authorize_request, except: [:index, :show]
   before_action :set_brother, only: [:show, :update, :destroy]
 
   # GET /brothers

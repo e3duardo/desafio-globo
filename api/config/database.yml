@@ -12,8 +12,8 @@
 default: &default
   adapter: mysql2
   encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
-  host: 172.18.0.3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: 172.20.0.2
   username: globo
   password: <%= Rails.application.credentials.database_password %>
 

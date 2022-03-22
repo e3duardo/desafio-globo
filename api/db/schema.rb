@@ -26,8 +26,7 @@ ActiveRecord::Schema.define(version: 2022_03_20_004848) do
   create_table "brothers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "avatar"
-    t.text "resume"
-    t.date "birth"
+    t.string "gshow_url"
     t.string "status", default: "regular"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

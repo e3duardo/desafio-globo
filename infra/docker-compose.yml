@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.4'
 
 services:
   mysql:
@@ -12,14 +12,20 @@ services:
     volumes:
       - $PWD/mysql/init:/docker-entrypoint-initdb.d
       - $PWD/tmp/mysql-data:/var/lib/mysql
+    networks:
+      plin_plin:
+        ipv4_address: 172.20.0.2
 
   redis: 
     container_name: challenge-redis
     image: redis:6.2-alpine
-    expose: 
-      - 6379
+    ports: 
+      - 6379:6379
     volumes: 
-      - /tmp/redis-data:/data
+      - $PWD/tmp/redis-data:/data
+    networks:
+      plin_plin:
+        ipv4_address: 172.20.0.4
 
   challenge-api: 
     container_name: challenge-api
@@ -31,3 +37,12 @@ services:
       - redis
     volumes: 
       - $PWD/../api:/var/www/app/current
+    networks:
+      plin_plin:
+        ipv4_address: 172.20.0.8
+
+networks:
+  plin_plin:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24

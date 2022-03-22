@@ -3,5 +3,5 @@ class Brother < ApplicationRecord
 
   enum status: { regular: 'regular', out: 'out' }
 
-  validates :name, :birth, presence: true
+  validates :name, presence: true
 end
