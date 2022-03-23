@@ -32,6 +32,7 @@ services:
     image: globo-challenge-api:1.0
     ports:
       - 3000:3000
+      - 9394:9394
     depends_on:
       - mysql
       - redis
@@ -53,6 +54,34 @@ services:
     networks:
       plin_plin:
         ipv4_address: 172.20.0.10
+
+  prometheus: 
+    container_name: prometheus
+    image: prom/prometheus:v2.34.0
+    ports:
+      - 9090:9090
+    volumes:
+      - $PWD/prometheus/:/etc/prometheus/
+      - $PWD/tmp/prometheus_data:/prometheus
+    networks:
+      plin_plin:
+        ipv4_address: 172.20.0.21
+
+  grafana: 
+    container_name: grafana
+    image: grafana/grafana:8.4.4
+    ports:
+      - 81:3000
+    depends_on:
+      - prometheus
+    volumes: 
+      - $PWD/grafana/provisioning/:/etc/grafana/provisioning/
+      - $PWD/tmp/grafana-data:/var/lib/grafana
+    env_file:
+      - ./grafana/config.monitoring
+    networks:
+      plin_plin:
+        ipv4_address: 172.20.0.23
 
 networks:
   plin_plin:

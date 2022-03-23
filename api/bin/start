@@ -3,4 +3,8 @@
 set -e
 
 bundle install
+
+nohup bundle exec prometheus_exporter -b 0.0.0.0 > log/prometheus.log &
+nohup bundle exec sidekiq > log/sidekiq.log &
+
 bundle exec puma -C config/puma.rb

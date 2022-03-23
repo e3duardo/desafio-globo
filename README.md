@@ -46,6 +46,16 @@ _estes comandos foram testados no macos e no linux, porém devem funcionar no wi
 
 <br>
 
+## Rotas das aplicações
+
+http://localhost <- frontend
+
+http://localhost:81 <- grafana
+http://localhost:3000 <- api
+http://localhost:3000/sidekiq <- sidekiq
+http://localhost:9090 <- prometheus
+http://localhost:9394/metrics <- métricas da aplicação
+
 ## Benchmarks
 
 No estado atual da aplicação, em ambiente de desenvolvimento, foi constatado que a aplicação consegue suportar até 160 requests/s
@@ -75,7 +85,8 @@ Transfer/sec:     63.46KB
 - [ ] Tela de cadastrar usuário
 - [ ] Panorama percentual de votos até o momento, após votar
 - [x] Catalogar os benchmarks feitos
-- [ ] Utilizar uma ferramenta de métrica como prometheus
+- [x] Utilizar uma ferramenta de métrica como prometheus
+- [ ] Criar dashboards do grafana
 - [ ] Total geral de votos / total de votos por participante / total de votos por hora para produção (user role backstage)
 - [ ] Conferir os testes unitários
 - [ ] Encerrar votação

@@ -14,6 +14,19 @@ Sidekiq.configure_server do |config|
     namespace: 'challenge-api',
     network_timeout: 20
   }
+
+  config.server_middleware do |chain|
+    require 'prometheus_exporter/instrumentation'
+    chain.add PrometheusExporter::Instrumentation::Sidekiq
+  end
+  
+  config.on :startup do
+    require 'prometheus_exporter/instrumentation'
+    PrometheusExporter::Instrumentation::ActiveRecord.start(
+      custom_labels: { type: "sidekiq" }, #optional params
+      config_labels: [:database, :host] #optional params
+    )
+  end
 end
 
 Sidekiq.configure_client do |config|
