@@ -29,7 +29,7 @@ function Banner() {
       <BrothersImages count={brothers.length}>
         <div className="background">
           {brothers.map((brother) => (
-            <div>
+            <div key={brother.id}> 
               <img
                 src={`${apiUrl}${brother.avatar.replace(
                   "header.png",

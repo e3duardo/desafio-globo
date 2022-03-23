@@ -11,8 +11,10 @@ class AuthenticationController < ApplicationController
         token: token, 
         exp: time.strftime("%m-%d-%Y %H:%M"),
         user: {
+          ud: @user.id,
           name: @user.name,
-          email: @user.email 
+          email: @user.email,
+          role: @user.role
         }
       }, status: :ok
     else

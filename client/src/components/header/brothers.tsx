@@ -17,7 +17,7 @@ function BrothersHeader() {
     <Container>
       <Brothers>
         {brothers.map((brother) => (
-          <Brother out={brother.status === "out"}>
+          <Brother out={brother.status === "out"} key={brother.id}>
             <img src={`${apiUrl}${brother.avatar}`} alt={brother.name} />
           </Brother>
         ))}

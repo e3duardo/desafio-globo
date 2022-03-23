@@ -24,8 +24,10 @@ export type SurveyType = {
 };
 
 export type UserType = {
+  id: number;
   name: string;
   email: string;
+  role: "backstage" | "viewer";
 };
 
 export type AuthType = {

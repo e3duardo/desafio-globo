@@ -1,44 +1,43 @@
 import { createContext, useContext, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { auth, LoginData } from "./services/auth";
+import { auth, LoginCallback, LoginData } from "./services/auth";
 import { UserType } from "./services/types";
-
 
 interface AuthContextType {
   user: UserType | null;
   error: string;
-  signin: ({ email, password }: LoginData, callback: VoidFunction) => void;
+  signin: ({ email, password }: LoginData, callback: LoginCallback) => void;
   signout: (callback: VoidFunction) => void;
 }
 
 let AuthContext = createContext<AuthContextType>(null!);
 
-function defaultUser(){
-  const user = localStorage.getItem('user');
+function defaultUser() {
+  const user = localStorage.getItem("user");
 
-  if(user){
+  if (user) {
     return JSON.parse(user) || null;
   }
-  
+
   return null;
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   let [user, setUser] = useState<UserType | null>(defaultUser());
-  let [error, setError] = useState<string>('');
+  let [error, setError] = useState<string>("");
 
-  let signin = ({ email, password }: LoginData, callback: VoidFunction) => {
+  let signin = ({ email, password }: LoginData, callback: LoginCallback) => {
     return auth.signin({ email, password }, (user, error) => {
       setUser(user);
       setError(error);
-      callback();
+      callback(user, error);
     });
   };
 
   let signout = (callback: VoidFunction) => {
     return auth.signout(() => {
       setUser(null);
-      setError('');
+      setError("");
       callback();
     });
   };
@@ -52,15 +51,19 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function RequireAuth({ children }: { children: JSX.Element }) {
+export function RequireAuth({
+  children,
+  backstage,
+}: {
+  children: JSX.Element;
+  backstage?: boolean;
+}) {
   let auth = useAuth();
   let location = useLocation();
 
-  if (!auth.user) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected. This allows us to send them
-    // along to that page after they login, which is a nicer user experience
-    // than dropping them off on the home page.
+  if (backstage && auth?.user?.role !== "backstage") {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  } else if (!auth.user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

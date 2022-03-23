@@ -1,3 +1,8 @@
+$primary: #5001b3;
+$secondary: #0669de;
+
+@import "bootstrap/scss/bootstrap";
+
 main {
   min-height: calc(100vh - 74px - 140px - 64px);
 }

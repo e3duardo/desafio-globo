@@ -25,11 +25,11 @@ export const HeaderBar = styled.div`
   }
 
   svg {
-    width: 99px;
+    width: 170px;
     height: 31px;
   }
   .dummy {
-    width: 99px;
+    width: 170px;
   }
 `;
 

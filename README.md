@@ -82,7 +82,7 @@ Transfer/sec:     63.46KB
 
 ## O que falta implementar
 
-- [ ] Tela de cadastrar usuário
+- [x] Tela de cadastrar usuário
 - [x] Panorama percentual de votos até o momento, após votar
 - [x] Catalogar os benchmarks feitos
 - [x] Utilizar uma ferramenta de métrica como prometheus

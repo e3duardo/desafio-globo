@@ -1,31 +1,46 @@
 import { Form, Container, Button, Alert, Row, Col } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../authprovider";
+import { ReactComponent as ContaGlobo } from "../assets/conta-globo.svg";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useRef } from "react";
 
 function LoginView() {
-  let navigate = useNavigate();
-  let location = useLocation();
-  let auth = useAuth();
+  const siteKey = "6LdWbv0eAAAAABLuVrtuOEryaSAPb0Gwo65m8BRn";
+  const recaptchaRef = useRef<any>(null);
 
-  let from = (location.state as any)?.from?.pathname || "/";
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
+
+  const from = (location.state as any)?.from?.pathname || "/";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    let formData = new FormData(event.currentTarget);
-    let email = formData.get("email") as string;
-    let password = formData.get("password") as string;
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    auth.signin({ email, password }, () => {
-      navigate(from, { replace: true });
+    auth.signin({ email, password }, (user) => {
+      let route = user?.role === "backstage" ? "/producao/dashboard" : from;
+      console.log(route);
+      route = route === '/login' ? '/' : route;
+
+      navigate(route, { replace: true });
     });
   }
 
   return (
     <Container>
       <Row className="d-flex justify-content-center p-3">
-        <Col xs={3}>
-          <p>Faça login para continuar</p>
+        <Col xs={4}>
+          <div className="text-center">
+            <ContaGlobo />
+            <p className="fw-lighter mt-2">
+              Uma só conta para todos os produtos Globo
+            </p>
+          </div>
 
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="email">
@@ -49,9 +64,23 @@ function LoginView() {
               <Alert variant="warning">{auth.error}</Alert>
             ) : null}
 
-            <Button variant="primary" type="submit">
-              Entrar
-            </Button>
+            <div className="d-flex justify-content-center mt-4 mb-4">
+              <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} />
+            </div>
+
+            <div className="d-grid">
+              <Button variant="secondary" type="submit">
+                Entrar
+              </Button>
+            </div>
+
+            <p className="text-center fw-light pt-3">
+              Não tem conta?{" "}
+              <Link to="/cadastro" className="fw-bold text-secondary">
+                CADASTRE-SE
+              </Link>
+              .
+            </p>
           </Form>
         </Col>
       </Row>
