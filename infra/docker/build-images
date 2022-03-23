@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd ../api
+make build
+
+cd ../client 
+make client
+
+cd ../infra
