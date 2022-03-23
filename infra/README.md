@@ -61,3 +61,13 @@ Transfer/sec:     29.19KB
 ```
 
 após diversos testes em diferentes configurações de threads e connections foi constatado que a média da api como implementada está em 73 requests/s
+
+### Etapa de otimização 2
+
+Foi identificado que mesmo com sidekiq e com voto assíncrono, ainda estava fazendo uma request síncrona para o banco para validar o usuário / token
+
+```
+
+```
+
+após diversos testes em diferentes configurações de threads e connections foi constatado que a média da api como implementada está em 73 requests/s
