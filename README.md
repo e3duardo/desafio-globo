@@ -48,6 +48,20 @@ _estes comandos foram testados no macos e no linux, porém devem funcionar no wi
 
 ## Benchmarks
 
+No estado atual da aplicação, em ambiente de desenvolvimento, foi constatado que a aplicação consegue suportar até 160 requests/s
+
+```
+wrk -t4 -c500 -d2s -s benchmark.lua http://localhost:3000/votes
+Running 2s test @ http://localhost:3000/votes
+  4 threads and 500 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   132.56ms  356.46ms   1.99s    92.10%
+    Req/Sec   127.60     59.24   190.00     76.00%
+  330 requests in 2.06s, 130.45KB read
+  Socket errors: connect 0, read 585, write 1, timeout 1
+Requests/sec:    160.54
+Transfer/sec:     63.46KB
+```
 
 <br>
 
@@ -60,7 +74,7 @@ _estes comandos foram testados no macos e no linux, porém devem funcionar no wi
 
 - [ ] Tela de cadastrar usuário
 - [ ] Panorama percentual de votos até o momento, após votar
-- [ ] Catalogar os benchmarks feitos
+- [x] Catalogar os benchmarks feitos
 - [ ] Utilizar uma ferramenta de métrica como prometheus
 - [ ] Total geral de votos / total de votos por participante / total de votos por hora para produção (user role backstage)
 - [ ] Conferir os testes unitários
