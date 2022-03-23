@@ -9,7 +9,7 @@ Sidekiq.logger = Rails.application.config.active_job.logger
 
 Sidekiq.configure_server do |config|
   config.redis = {
-    # url: Rails.application.config.app.sidekiq.redis.url,
+    url: 'redis://172.20.0.4:6379',
     # password: Rails.application.config.app.redis.password,
     namespace: 'challenge-api',
     network_timeout: 20
@@ -18,7 +18,7 @@ end
 
 Sidekiq.configure_client do |config|
   config.redis = {
-    # url: Rails.application.config.app.sidekiq.redis.url,
+    url: 'redis://172.20.0.4:6379',
     # password: Rails.application.config.app.redis.password,
     namespace: 'challenge-api'
   }

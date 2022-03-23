@@ -15,15 +15,18 @@ class VotesController < ApplicationController
 
   # POST /votes
   def create
-    survey = Survey.find_by!(status: :active)
+    VoteJob.perform_later(@current_user.id, answer_params[:brother_id])
 
-    @answer = Answer.new(answer_params.merge(user_id: @current_user.id, survey_id: survey.id))
+    head :ok
+    # survey = Survey.find_by!(status: :active)
 
-    if @answer.save
-      render json: @answer, status: :created
-    else
-      render json: @answer.errors, status: :unprocessable_entity
-    end
+    # @answer = Answer.new(answer_params.merge(user_id: @current_user.id, survey_id: survey.id))
+
+    # if @answer.save
+    #   render json: @answer, status: :created
+    # else
+    #   render json: @answer.errors, status: :unprocessable_entity
+    # end
   end
 
   private

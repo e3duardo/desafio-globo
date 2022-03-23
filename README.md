@@ -64,3 +64,4 @@ _estes comandos foram testados no macos e no linux, porém devem funcionar no wi
 - [ ] Utilizar uma ferramenta de métrica como prometheus
 - [ ] Total geral de votos / total de votos por participante / total de votos por hora para produção (user role backstage)
 - [ ] Conferir os testes unitários
+- [ ] Encerrar votação
