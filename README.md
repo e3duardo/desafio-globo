@@ -12,7 +12,7 @@ Foi escolhido usar uma estrutura de repositórios [monorepo](https://en.wikipedi
 
 <br>
 
-## Dependências para rodar os projetos
+## Dependências
 
 - docker
 - docker-compose
