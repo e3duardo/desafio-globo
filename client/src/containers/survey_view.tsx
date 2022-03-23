@@ -12,15 +12,18 @@ function SurveyView() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    publicSurvey()
-      .then((survey) => {
-        setSurvey(survey);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    loadPublicSurvey();
   }, []);
+
+  async function loadPublicSurvey() {
+    try {
+      setLoading(true);
+      const survey = await publicSurvey();
+      setSurvey(survey);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (loading && !survey) return <Loading />;
   if (!survey) return <EmptySurvey />;
@@ -28,7 +31,7 @@ function SurveyView() {
   return (
     <>
       <Container>
-        <Survey survey={survey} />
+        <Survey survey={survey} reload={loadPublicSurvey} />
       </Container>
     </>
   );
