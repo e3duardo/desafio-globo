@@ -125,3 +125,38 @@ após diversos testes em diferentes configurações de threads e connections foi
 
 Tentando trocar o Puma pelo Unicorn, continuou nas mesmas médias anteriores, por isso nem salvei o resultado.
 
+
+----
+
+### Etapa de otimização 5 - após horário de entrega do teste
+
+Rodando a aplicação fora do docker foi possível chegar na marca dos 1000 requests/s, para isto foi necessário: 
+- rodar a aplicação com RAILS_ENV=production fora do docker
+- configurar o puma para 10 threads e 10 workers
+
+O número final ficou assim:
+
+```
+wrk -t10 -c100 -d10s -s benchmark.lua http://127.0.0.1:3000/votes
+Running 10s test @ http://127.0.0.1:3000/votes
+  10 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    80.63ms   74.25ms 897.53ms   90.31%
+    Req/Sec   143.31     33.67   250.00     71.10%
+  14339 requests in 10.06s, 5.51MB read
+Requests/sec:   1424.99
+Transfer/sec:    560.81KB
+```
+
+E usando RAILS_ENV=development denovo
+
+```
+Running 10s test @ http://127.0.0.1:3000/votes
+  10 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   134.03ms  175.25ms   1.70s    93.36%
+    Req/Sec   108.60     27.01   181.00     72.60%
+  10122 requests in 10.06s, 3.89MB read
+Requests/sec:   1006.20
+Transfer/sec:    396.07KB
+```

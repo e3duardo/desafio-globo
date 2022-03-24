@@ -61,16 +61,15 @@ _estes comandos foram testados no macos e no linux, porém devem funcionar no wi
 No estado atual da aplicação, em ambiente de desenvolvimento, foi constatado que a aplicação consegue suportar até 160 requests/s
 
 ```
-wrk -t4 -c500 -d2s -s benchmark.lua http://localhost:3000/votes
-Running 2s test @ http://localhost:3000/votes
-  4 threads and 500 connections
+wrk -t10 -c100 -d10s -s benchmark.lua http://127.0.0.1:3000/votes
+Running 10s test @ http://127.0.0.1:3000/votes
+  10 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   132.56ms  356.46ms   1.99s    92.10%
-    Req/Sec   127.60     59.24   190.00     76.00%
-  330 requests in 2.06s, 130.45KB read
-  Socket errors: connect 0, read 585, write 1, timeout 1
-Requests/sec:    160.54
-Transfer/sec:     63.46KB
+    Latency    80.63ms   74.25ms 897.53ms   90.31%
+    Req/Sec   143.31     33.67   250.00     71.10%
+  14339 requests in 10.06s, 5.51MB read
+Requests/sec:   1424.99
+Transfer/sec:    560.81KB
 ```
 
 Mais benchmarks no diretório [infra](/infra)
