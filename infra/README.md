@@ -23,9 +23,9 @@ docker-compose up -d
 
 ## Benchmarks
 
-Foi feito um benchmark da api de votação utilizando a ferramenta [wrk](https://github.com/wg/wrk), vou listar abaixo os parametro utilizados e as mudanças na api para melhorar a performanse.
+Foi feito um benchmark da api de votação utilizando a ferramenta [wrk](https://github.com/wg/wrk), vou listar abaixo os parametro utilizados e as mudanças na api para melhorar a performance.
 
-### Performanse base - sem otimizações
+### Performance base - sem otimizações
 
 ```
 wrk -t3 -c500 -d5s -s benchmark.lua http://localhost:3000/votes
