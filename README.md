@@ -73,6 +73,8 @@ Requests/sec:    160.54
 Transfer/sec:     63.46KB
 ```
 
+Mais benchmarks no diretório [infra](/infra)
+
 <br>
 
 ## Funcionalidades
