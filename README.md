@@ -76,17 +76,23 @@ Transfer/sec:     63.46KB
 <br>
 
 ## Funcionalidades
- - 
+ - Gestão de usuários via api
+ - Gestão de brothers via api 
+ - Gestão de paredões via api
+
+ - Cadastro de novo usuário 
+ - Votação nos paredões
+
+ - Visualização e estatisticas dos paredões como produção
+ - Encerrar votação como produção
+ - Métricas da api no grafana
 
 <br>
 
-## O que falta implementar
+## Para o futuro
 
-- [x] Tela de cadastrar usuário
-- [x] Panorama percentual de votos até o momento, após votar
-- [x] Catalogar os benchmarks feitos
-- [x] Utilizar uma ferramenta de métrica como prometheus
-- [ ] Criar dashboards do grafana
-- [x] Total geral de votos / total de votos por participante / total de votos por hora para produção (user role backstage)
-- [ ] Conferir os testes unitários
-- [x] Encerrar votação
+ - Melhorar o dashboard do grafana coletando novas métricas
+ - Melhorar as métricas adicionando a votação como uma futura métrica
+ - Testes para frontend
+ - Melhorar a autorização
+ - Melhorar cobertura dos testes

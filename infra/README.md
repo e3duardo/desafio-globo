@@ -121,3 +121,7 @@ Transfer/sec:     63.46KB
 após diversos testes em diferentes configurações de threads e connections foi constatado que a média da api como implementada está em 160 requests/s
 
 
+### Etapa de otimização 4
+
+Tentando trocar o Puma pelo Unicorn, continuou nas mesmas médias anteriores, por isso nem salvei o resultado.
+

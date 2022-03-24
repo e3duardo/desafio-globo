@@ -30,3 +30,5 @@
 !/coverage/.keep
 
 /config/credentials/production.key
+
+/config/credentials/test.key
