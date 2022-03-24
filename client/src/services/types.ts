@@ -13,7 +13,7 @@ export type SurveyType = {
   id: number;
   date: string;
   status: "created" | "active" | "done";
-  brother_out_id: string;
+  brother_out_id: number;
   total_votes: number;
   total_votes_at_last_hour: number;
   total_votes_per_brother: {

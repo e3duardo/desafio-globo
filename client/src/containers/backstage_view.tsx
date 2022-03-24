@@ -1,16 +1,19 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-import Survey from "../components/survey";
 import { SurveyType } from "../services/types";
 import { publicSurvey } from "../services/public-survey";
 import Loading from "../components/loading";
 import EmptySurvey from "../components/survey/empty";
 import { apiUrl } from "../services/base";
+import { closeSurvey } from "../services/survey";
 
 function BackstageView() {
   const [survey, setSurvey] = useState<SurveyType | null>(null);
   const [loading, setLoading] = useState(false);
+  const ConfirmSwal = withReactContent(Swal);
 
   useEffect(() => {
     loadPublicSurvey();
@@ -30,12 +33,52 @@ function BackstageView() {
     }
   }
 
+  function handleFinishSurvey() {
+    if (survey?.status === "active") {
+      ConfirmSwal.fire({
+        title: "Tem certeza 😲 ?",
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: "Sim 👹",
+        denyButtonText: "Não 🙏🏻",
+        // didOpen: () => {
+        //   // `MySwal` is a subclass of `Swal`
+        //   //   with all the same instance & static methods
+        //   ConfirmSwal.clickConfirm()
+        // }
+      }).then((result: any) => {
+        if (result.isConfirmed) {
+          closeSurvey(survey.id).then((ok) => {
+            ok
+              ? Swal.fire("Já foi!", "", "success")
+              : Swal.fire("Ops!", "", "error");
+
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+          });
+        } else if (result.isDenied) {
+          Swal.fire("Uffa, essa foi por pouco!", "", "success");
+        }
+      });
+    }
+  }
+
   if (loading && !survey) return <Loading />;
   if (!survey) return <EmptySurvey />;
 
   return (
     <>
       <Container>
+        {survey.status === "active" ? (
+          <div className="p-3 mb-4 bg-secondary rounded-3 fs-3 text-center text-white">
+            VOTAÇÃO ATIVA
+          </div>
+        ) : (
+          <div className="p-3 mb-4 rounded-3 fs-3 text-center bg-opacity-25 bg-black text-black-50">
+            VOTAÇÃO ENCERRADA
+          </div>
+        )}
+
         <div className="row mt-5 mb-4">
           <div className="col">
             <div
@@ -78,7 +121,7 @@ function BackstageView() {
             </div>
           ))}
         </div>
-        <div className="row">
+        <div className="row mb-5">
           <div className="col">
             <div
               className="card text-white bg-success mb-3"
@@ -114,6 +157,17 @@ function BackstageView() {
             </div>
           ))}
         </div>
+        {survey.status === "active" && (
+          <div className="d-flex justify-content-center mt-4 mb-5">
+            <button
+              type="button"
+              className="btn btn-danger btn-lg"
+              onClick={handleFinishSurvey}
+            >
+              ENCERRAR VOTAÇÃO
+            </button>
+          </div>
+        )}
       </Container>
     </>
   );

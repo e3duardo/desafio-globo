@@ -6,10 +6,12 @@ import { SurveyType } from "../services/types";
 import { publicSurvey } from "../services/public-survey";
 import Loading from "../components/loading";
 import EmptySurvey from "../components/survey/empty";
+import { useNavigate } from "react-router-dom";
 
 function SurveyView() {
   const [survey, setSurvey] = useState<SurveyType | null>(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadPublicSurvey();
@@ -19,6 +21,11 @@ function SurveyView() {
     try {
       setLoading(true);
       const survey = await publicSurvey();
+
+      if (survey?.status !== "active") {
+        navigate("/", { replace: true });
+      }
+      
       setSurvey(survey);
     } finally {
       setLoading(false);

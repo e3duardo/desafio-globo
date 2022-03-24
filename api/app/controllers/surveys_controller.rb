@@ -46,7 +46,8 @@ class SurveysController < ApplicationController
 
   # DELETE /surveys/1
   def destroy
-    @survey.destroy
+    eliminated = Answer.where(survey: @survey).order('count(brother_id) desc').group(:brother_id).count(:brother_id).first.first;
+    @survey.update(status: :done, brother_out_id: eliminated)
   end
 
   private

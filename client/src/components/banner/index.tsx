@@ -17,6 +17,12 @@ function Banner() {
     return `${names.join(", ")} ou ${lastName}`;
   }, [brothers]);
 
+  const brotherOut = useMemo(() => {
+    return survey?.status === "done"
+      ? brothers.find((brother) => brother.id === survey.brother_out_id)
+      : null;
+  }, [brothers, survey]);
+
   useEffect(() => {
     publicSurvey().then((survey) => {
       setSurvey(survey);
@@ -29,7 +35,7 @@ function Banner() {
       <BrothersImages count={brothers.length}>
         <div className="background">
           {brothers.map((brother) => (
-            <div key={brother.id}> 
+            <div key={brother.id}>
               <img
                 src={`${apiUrl}${brother.avatar.replace(
                   "header.png",
@@ -42,9 +48,15 @@ function Banner() {
         </div>
       </BrothersImages>
       <Botao1 to={`/votacao/${survey?.id}`}>
-        Paredão do BBB22: Vote para eliminar. {brotherNames}?
+        {survey?.status === "active" ? (
+          <>Paredão do BBB22: Vote para eliminar. {brotherNames}?</>
+        ) : (
+          <>Votação finalizada, {brotherOut?.name} está fora da casa</>
+        )}
       </Botao1>
-      <Botao2 to={`/votacao/${survey?.id}`}>vote agora</Botao2>
+      {survey?.status === "active" && (
+        <Botao2 to={`/votacao/${survey?.id}`}>vote agora</Botao2>
+      )}
     </Container>
   );
 }

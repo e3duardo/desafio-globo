@@ -87,6 +87,6 @@ Transfer/sec:     63.46KB
 - [x] Catalogar os benchmarks feitos
 - [x] Utilizar uma ferramenta de métrica como prometheus
 - [ ] Criar dashboards do grafana
-- [ ] Total geral de votos / total de votos por participante / total de votos por hora para produção (user role backstage)
+- [x] Total geral de votos / total de votos por participante / total de votos por hora para produção (user role backstage)
 - [ ] Conferir os testes unitários
-- [ ] Encerrar votação
+- [x] Encerrar votação
