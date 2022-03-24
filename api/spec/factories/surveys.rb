@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :survey do
-    date { Faker::Date.forward(days: 7) }
-    status { Survey.created }
+    date { Time.zone.today }
+    status { :created }
     brother_out {}
   end
 end

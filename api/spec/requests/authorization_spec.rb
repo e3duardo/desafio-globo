@@ -11,7 +11,7 @@ describe "/auth/login", type: :request do
       it "login into application" do
         post '/auth/login', params: valid_attributes, as: :json
         result = JSON.parse(response.body)
-        expect(result.keys.sort).to eq(['email', 'exp', 'token'])
+        expect(result.keys.sort).to eq(['exp', 'token', 'user'])
       end
 
       it "renders a JSON response" do

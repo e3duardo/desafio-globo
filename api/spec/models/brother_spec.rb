@@ -10,6 +10,5 @@ describe Brother, type: :model do
       ).backed_by_column_of_type(:string)
     }
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:birth) }
   end
 end

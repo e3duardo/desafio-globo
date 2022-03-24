@@ -12,8 +12,10 @@ describe "/votes", type: :request do
     before { Answer.create!(survey: survey, brother: brother, user: user) }
     let(:default_role) { :backstage }
 
+    let(:request) { get votes_url, headers: valid_headers, as: :json }
+
     it "renders a successful response" do
-      get votes_url, headers: valid_headers, as: :json
+      request
       expect(response).to be_successful
     end
 
@@ -21,9 +23,8 @@ describe "/votes", type: :request do
       let(:default_role) { :viewer }
   
       it "renders a successful response" do
-        get votes_url, headers: valid_headers, as: :json
+        request
         result = JSON.parse(response.body)
-
         expect(response).to have_http_status(:forbidden)
         expect(result.keys.sort).to eq(['errors'])
       end
@@ -34,30 +35,32 @@ describe "/votes", type: :request do
     let(:default_role) { :viewer }
 
     context "with valid parameters" do
+      let(:request) { post votes_url, params: valid_attributes, headers: valid_headers, as: :json }
+
       it "creates a new Answer" do
-        expect {
-          post votes_url, params: valid_attributes, headers: valid_headers, as: :json
-        }.to change(Answer, :count).by(1)
+        ActiveJob::Base.queue_adapter = :test
+        expect { request }.to have_enqueued_job(VoteJob)
       end
 
       it "renders a JSON response with the new answer" do
-        post votes_url,params: valid_attributes, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
+        request
+        expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
     end
 
     context "with invalid parameters" do
+      let(:request) { post votes_url, params: invalid_attributes, headers: valid_headers, as: :json }
+
       it "does not create a new Answer" do
-        expect {
-          post votes_url, params: invalid_attributes, as: :json
-        }.to change(Answer, :count).by(0)
+        ActiveJob::Base.queue_adapter = :test
+        expect { request }.to have_enqueued_job(VoteJob)
       end
 
       it "renders a JSON response with errors for the new answer" do
-        post votes_url, params: invalid_attributes, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq("application/json; charset=utf-8")
+        request
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to eq("application/json")
       end
     end
   end
