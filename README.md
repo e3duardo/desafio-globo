@@ -48,13 +48,13 @@ _estes comandos foram testados no macos e no linux, porém devem funcionar no wi
 
 ## Rotas das aplicações
 
-http://localhost <- frontend
+- http://localhost <- frontend
 
-http://localhost:81 <- grafana
-http://localhost:3000 <- api
-http://localhost:3000/sidekiq <- sidekiq
-http://localhost:9090 <- prometheus
-http://localhost:9394/metrics <- métricas da aplicação
+- http://localhost:81 <- grafana
+- http://localhost:3000 <- api
+- http://localhost:3000/sidekiq <- sidekiq
+- http://localhost:9090 <- prometheus
+- http://localhost:9394/metrics <- métricas da aplicação
 
 ## Benchmarks
 
@@ -72,6 +72,8 @@ Running 2s test @ http://localhost:3000/votes
 Requests/sec:    160.54
 Transfer/sec:     63.46KB
 ```
+
+Mais benchmarks no diretório [infra](/infra)
 
 <br>
 
