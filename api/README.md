@@ -270,3 +270,7 @@ header:
 
 `Authorization: Bearer {{token de um usuário viewer}}` 
 <br>
+
+## Collection do Postman
+
+[api.postman_collection.json](api.postman_collection.json)
